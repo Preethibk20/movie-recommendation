@@ -4,7 +4,8 @@ document.getElementById('getRecommendations').addEventListener('click', async ()
   resultDiv.innerHTML = 'Loading...';
 
   try {
-    const res = await fetch(`http://localhost:5000/api/movies/${genre}`);
+   const res = await fetch(`https://movie-recommendation-olxa.onrender.com/api/movies/${genre}`);
+
     const data = await res.json();
 
     if (data.length === 0) {
