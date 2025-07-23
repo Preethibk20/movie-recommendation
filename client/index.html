@@ -1,24 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Movie Recommender</title>
-  <link rel="stylesheet" href="style.css">
+  <title>OMDb Movie Search</title>
 </head>
 <body>
-  <h1>Movie Recommender</h1>
-
-  <label for="genre">Choose a genre:</label>
-  <select id="genre">
-    <option value="action">Action</option>
-    <option value="comedy">Comedy</option>
-    <option value="sci-fi">Sci-Fi</option>
-  </select>
-
-  <button id="getRecommendations">Get Recommendations</button>
+  <h2>Search Movie</h2>
+  <input id="title" placeholder="Enter movie title">
+  <button onclick="searchMovie()">Search</button>
 
   <div id="result"></div>
 
-  <script src="script.js"></script>
+  <script>
+    function searchMovie() {
+      const title = document.getElementById("title").value;
+      fetch(`http://localhost:5000/api/movies/search?title=${encodeURIComponent(title)}`)
+        .then(res => res.json())
+        .then(data => {
+          const div = document.getElementById("result");
+          if (data.Response === "False") {
+            div.innerHTML = `<p>Movie not found</p>`;
+          } else {
+            div.innerHTML = `
+              <h3>${data.Title}</h3>
+              <img src="${data.Poster}" height="250"/>
+              <p>${data.Plot}</p>
+              <p>⭐ ${data.imdbRating}</p>
+              <p>🎬 ${data.Genre}</p>
+              <p>📅 ${data.Released}</p>
+            `;
+          }
+        });
+    }
+  </script>
 </body>
 </html>
