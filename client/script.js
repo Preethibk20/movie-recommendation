@@ -1,22 +1,11 @@
-document.getElementById('getRecommendations').addEventListener('click', async () => {
-  const genre = document.getElementById('genre').value;
-  const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = 'Loading...';
+// Replace with your actual Render backend URL!
+const API_BASE = "https://movie-recommendation-olxaonrender_com/api/movies";
 
-  try {
-   const res = await fetch(`https://movie-recommendation-olxa.onrender.com/api/movies/${genre}`);
-
-    const data = await res.json();
-
-    if (data.length === 0) {
-      resultDiv.innerHTML = 'No movies found for this genre.';
-      return;
-    }
-
-    resultDiv.innerHTML = '<h3>Recommendations:</h3><ul>' +
-      data.map(movie => `<li>${movie.title} (${movie.year})</li>`).join('') +
-      '</ul>';
-  } catch (error) {
-    resultDiv.innerHTML = 'Error fetching recommendations.';
-  }
-});
+function searchMovies() {
+  const title = document.getElementById("searchInput").value;
+  fetch(`${API_BASE}/search?title=${encodeURIComponent(title)}`)
+    .then(res => res.json())
+    .then(data => {
+      // ...handle results
+    });
+}
