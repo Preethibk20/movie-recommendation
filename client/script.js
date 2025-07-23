@@ -1,5 +1,5 @@
 // Replace with your actual Render backend URL!
-const API_BASE = "https://movie-recommendation-olxaonrender_com/api/movies";
+const API_BASE = "https://movie-recommendation-olxaonrender.com/api/movies";
 
 function searchMovies() {
   const title = document.getElementById("searchInput").value;
